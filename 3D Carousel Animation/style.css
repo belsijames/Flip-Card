@@ -1,0 +1,494 @@
+
+/* =========================
+   GLOBAL RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+html {
+    background: #050816;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    background: transparent;
+    isolation: isolate;
+}
+
+/* =========================
+   FIXED BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #173b67,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #050816,
+            #101a32,
+            #050816
+        );
+}
+
+/* STAR BACKGROUND */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white 99%, transparent),
+        radial-gradient(1px 1px at 100px 80px, white 99%, transparent),
+        radial-gradient(2px 2px at 180px 150px, #b9e8ff 99%, transparent),
+        radial-gradient(1px 1px at 250px 40px, white 99%, transparent),
+        radial-gradient(2px 2px at 320px 190px, white 99%, transparent),
+        radial-gradient(1px 1px at 400px 100px, #b9e8ff 99%, transparent),
+        radial-gradient(2px 2px at 480px 60px, white 99%, transparent),
+        radial-gradient(1px 1px at 550px 170px, white 99%, transparent);
+
+    background-size: 600px 220px;
+    background-repeat: repeat;
+
+    opacity: 0.65;
+    animation: twinkleStars 4s ease-in-out infinite alternate;
+}
+
+/* TWINKLING EFFECT */
+
+@keyframes twinkleStars {
+    0% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.heading {
+    width: 100%;
+    height: 18vh;
+    min-height: 100px;
+    max-height: 145px;
+
+    text-align: center;
+    padding: 18px 12px 0;
+    overflow: hidden;
+}
+
+.heading h1 {
+    font-size: clamp(24px, 3vw, 38px);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    margin-top: 15px;
+}
+
+.heading p {
+    color: #cbd5e1;
+    font-size: 18px;
+    line-height: 1.5;
+}
+.hint {
+    place-self: center;
+    margin-top: 20px;
+    color: #8bdcff;
+    font-size: 12px;
+}
+
+/* =========================
+   GALLERY SCENE
+========================= */
+
+.scene {
+    width: 100%;
+    height: 82vh;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+    perspective: 1200px;
+
+    mask: linear-gradient(
+        90deg,
+        transparent,
+        black 20%,
+        black 80%,
+        transparent
+    );
+
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        black 20%,
+        black 80%,
+        transparent
+    );
+}
+
+/* =========================
+   3D CAROUSEL
+========================= */
+
+.carousel {
+    --w: clamp(110px, 14vw, 165px);
+    --ba: calc(1turn / var(--n));
+
+    display: grid;
+    place-items: center;
+    position: relative;
+
+    transform-style: preserve-3d;
+    animation: rotateGallery 40s linear infinite;
+}
+
+.carousel:hover {
+    animation-play-state: paused;
+}
+
+/* ROTATION */
+
+@keyframes rotateGallery {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    width: var(--w);
+    --w: 17.5em;
+    --ba: calc(1turn / var(--n));
+    aspect-ratio: 7 / 10;
+
+    grid-area: 1 / 1;
+    position: relative;
+    display: block;
+
+    margin-top: 0;
+
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    background: #172033;
+    color: white;
+    text-decoration: none;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+
+    transform:
+        rotateY(calc(var(--i) * var(--ba)))
+        translateZ(
+            calc(
+                -1 * (0.5 * var(--w) + 0.5rem)
+                / tan(0.5 * var(--ba))
+            )
+        );
+
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* CARD IMAGES */
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.card:hover {
+    border-color: #8bdcff;
+    box-shadow: 0 0 25px rgba(80, 190, 255, 0.5);
+}
+
+/* CARD TITLES */
+
+.card-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 30px 8px 12px;
+    text-align: center;
+
+    font-size: clamp(11px, 1.2vw, 14px);
+    font-weight: bold;
+
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.9)
+    );
+}
+
+/* =========================
+   POPUP OVERLAY
+========================= */
+
+.popup {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+    overflow-y: auto;
+
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.popup:target {
+    display: flex;
+}
+
+/* POPUP CONTENT */
+
+.popup-content {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 16px;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        145deg,
+        #182944,
+        #0b1222
+    );
+
+    border: 1px solid rgba(139, 220, 255, 0.5);
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+
+    animation: popupAppear 0.3s ease;
+}
+
+/* POPUP ANIMATION */
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* POPUP IMAGE */
+
+.popup-content img {
+    display: block;
+    width: 100%;
+    height: 210px;
+
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* POPUP HEADING */
+
+.popup-content h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* POPUP CATEGORY */
+
+.popup-content .category {
+    color: #8bdcff;
+    font-size: 13px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* POPUP DESCRIPTION */
+
+.popup-content p {
+    color: #d4deed;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* CLOSE BUTTON */
+
+.close {
+    position: absolute;
+    z-index: 2;
+    top: 23px;
+    right: 23px;
+
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+
+    color: white;
+    text-decoration: none;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.close:hover {
+    background: #168bd2;
+}
+
+/* =========================
+   SMALL SCREENS
+========================= */
+
+@media (max-width: 600px) {
+    .heading {
+        height: 16vh;
+        min-height: 90px;
+        padding-top: 15px;
+    }
+
+    .heading h1 {
+        font-size: 25px;
+    }
+
+    .heading p {
+        font-size: 12px;
+    }
+
+    .scene {
+        height: 84vh;
+    }
+
+    .carousel {
+        --w: 110px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-info {
+        padding: 25px 5px 10px;
+        font-size: 11px;
+    }
+
+    .popup-content {
+        padding: 13px;
+    }
+
+    .popup-content img {
+        height: 180px;
+    }
+
+    .popup-content h2 {
+        font-size: 21px;
+    }
+}
+
+/* =========================
+   SHORT SCREENS
+========================= */
+
+@media (max-height: 500px) {
+    .heading {
+        height: 20vh;
+        min-height: 75px;
+        padding-top: 8px;
+    }
+
+    .heading h1 {
+        font-size: 23px;
+    }
+
+    .scene {
+        height: 80vh;
+    }
+
+    .carousel {
+        --w: 95px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .carousel {
+        animation: none;
+    }
+
+    .card,
+    .card img {
+        transition: none;
+    }
+}
