@@ -1,0 +1,65 @@
+body{
+    background-color: #fff1d6;
+    color: #292929;
+}
+/* =========================
+   CONTAINER
+========================= */
+.container{
+    display: flex;
+    width: 600px;
+    height: 400px;
+    gap: 5px;
+    place-self: center;
+    margin: 80px;
+    margin-top: 50px;
+}
+
+/* =========================
+   CARD
+========================= */
+.card{
+    background: #000;
+    flex: 1;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(80%);
+    cursor: pointer;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.card:hover{
+    flex: 4;
+    filter: grayscale(0%);
+}
+
+/* =========================
+    IMAGES
+========================= */
+
+.c1{
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkfN7hABV7kWGPPNgtxzYhpnf305KXC9yw3JZKqriiww&s=10");
+}
+.c2{
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYq1R_HE2Yt9SaT860SyV9osExPH3gSCLwGrCMYAzvnQ&s=10");
+}
+.c3{
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZSIeiHAa6qDooWcuLFFGHGtc3r7zvblG5_ToPpBitlQ&s=10");
+}
+.c4{
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLFMNOd73jQHLrpYdbr34wygNIoGVguN1TYndkDAb5DA&s=10");
+}
+.c5{
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt8FFhyt89_7HAqAIPYolH85ns6lnOBcWsoJ8-y_vOmw&s=10");
+}
+
+/* =========================
+    HEADING
+========================= */
+
+h1{
+    place-self: center;
+    margin-top: 40px;
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
